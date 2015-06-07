@@ -1,0 +1,38 @@
+<html>
+<head></head>
+<body>
+  <canvas id="myChart" width="400" height="400"></canvas>
+  <script src="jquery.min.js"></script>
+  <script src="Chart.js"></script>
+  <script type="text/javascript">
+  (function() {
+    $.getJSON('/readings?name=Tampere', function(data) {
+      var labels = [];
+      var values = [];
+      for (var i = 0; i < data.length; i++) {
+        labels.push('');
+        values.push(data[i].temp);
+      }
+      var data = {
+          labels: labels,
+          datasets: [
+              {
+                  strokeColor: "rgba(151,187,205,1)",
+                  pointColor: "rgba(151,187,205,1)",
+                  pointStrokeColor: "#fff",
+                  pointHighlightFill: "#fff",
+                  pointHighlightStroke: "rgba(151,187,205,1)",
+                  data: values
+              }
+          ]
+      };
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var chart = new Chart(ctx).Line(data, {
+        bezierCurve: false,
+        datasetFill: false
+      });
+    });
+  }).call(this);
+  </script>
+</body>
+</html>
