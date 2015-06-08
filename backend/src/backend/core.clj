@@ -5,7 +5,8 @@
         [ring.middleware.json :only [wrap-json-response wrap-json-body]]
         [ring.util.response :only [response]]
         [clojurewerkz.cassaforte.client :as client]
-        [clojurewerkz.cassaforte.cql :as cql]))
+        [clojurewerkz.cassaforte.cql :as cql]
+        [clojurewerkz.cassaforte.query :as cqlq]))
 
 ; Cassandra session, needed to be able to use CQL commands
 (def session (client/connect ["localhost"] {:keyspace "simpledemo"}))
