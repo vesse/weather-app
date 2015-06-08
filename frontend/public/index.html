@@ -6,10 +6,19 @@
   <script src="Chart.js"></script>
   <script type="text/javascript">
   (function() {
-    $.getJSON('/readings?name=Tampere', function(data) {
+    var getParameterByName = function (name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    };
+
+    var city = getParameterByName('name') || 'Tampere';
+    $.getJSON('/readings?name=' + city, function(data) {
       var labels = [];
       var values = [];
       for (var i = 0; i < data.length; i++) {
+        // Just put empty labels
         labels.push('');
         values.push(data[i].temp);
       }
